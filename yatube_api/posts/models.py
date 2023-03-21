@@ -4,6 +4,8 @@ from django.db import models
 
 User = get_user_model()
 
+NUM_OF_CHAR = 15
+
 
 class Group(models.Model):
     title = models.CharField(
@@ -42,7 +44,6 @@ class Post(models.Model):
     image = models.ImageField(
         'Картинка',
         upload_to='posts/',
-        null=True,
         blank=True
     )
     group = models.ForeignKey(
@@ -86,6 +87,9 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+
+    def __str__(self) -> str:
+        return self.text[:NUM_OF_CHAR]
 
 
 class Follow(models.Model):
